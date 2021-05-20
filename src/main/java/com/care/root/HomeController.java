@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -35,5 +36,28 @@ public class HomeController {
 		
 		return "home";
 	}
+	@GetMapping("non_ajax")
+	public String nonAjax() {
+		return "non_ajax";
+	}
+	
+	@GetMapping("ajax")
+	public String ajax() {
+		System.out.println("ajax연결");
+		return "ajax";
+	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
