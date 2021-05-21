@@ -4,11 +4,15 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,6 +56,23 @@ public class HomeController {
 	@ResponseBody
 	public String ajax_result() {
 		return ++cnt + "";
+	}
+	
+	@GetMapping("ajax01")
+	public String ajax01() {
+		return "ajax01";
+		
+	}
+	@PostMapping(value = "ajax_result01",
+			produces = "application/json; charset=utf-8")//요청받았을 때 처리해줄 타입
+	@ResponseBody //리턴으로 돌려주는 값이 문자형태
+	public InfoDTO ajax_result01(@RequestBody InfoDTO dto) {//@RequestBody(json타입으로 받을 때 무조건 쓴다) jsp페이지 에서 넘어오는 데이터를 처리할 때
+		System.out.println(dto.getName());
+		System.out.println(dto.getAge());	
+		dto.setName("변경된 이름");
+		dto.setAge("200");
+		
+		return dto;
 	}
 }
 
