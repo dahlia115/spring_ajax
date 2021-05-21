@@ -26,7 +26,7 @@
 				})
 				//$("#users").text(html)
 				//$("#users").html(html)//새로운 내용으로 덮어씌운다
-				$("#users").append(html)
+				$("#users").append(html)//기존 데이터에 이어 써준다
 			}, error: function(){ alert('문제발생') }
 		})
 	}
