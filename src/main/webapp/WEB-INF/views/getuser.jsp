@@ -30,10 +30,38 @@
 			}, error: function(){ alert('문제발생') }
 		})
 	}
+	function userInfo(){
+		$.ajax({
+			url: "user/"+$("#userId").val(),//url: "user?userId="+$("#userId").val(),
+			type : "GET", dataType : "json",
+			success: function(list){
+				html = ''
+				html += "<b>아이디</b>" + list.name +"님<br>"
+				html += "<b>나이</b>" + list.age +"살<hr>"
+				$("#users").html(html)
+			}, error: function(){
+				alert('문제 발생')
+			}
+		
+		})
+	}
 </script>
 </head>
 <body>
 	<span id="users"></span><hr>
 	<button type="button" onclick="getUsers()">사용자보기</button>
+	<hr>
+	<input type="text" id="userId">
+	<button type="button" onclick="userInfo()">개인정보보기</button>
+	
 </body>
 </html>
+
+
+
+
+
+
+
+
+

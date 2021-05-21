@@ -1,12 +1,16 @@
 package com.care.root;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,17 +37,33 @@ public class TestController {
 		return "{\"execute\" : \"delete(데이터 삭제(delete))\"}";
 	}
 	static int cnt = 0;
+	static Map<String, InfoDTO> DBMap = new HashMap();
 	@GetMapping(value = "users", produces = "application/json; charset=utf-8")
 	public ArrayList<InfoDTO> users(){
 		ArrayList<InfoDTO> list = new ArrayList<InfoDTO>();
 		for(int i=cnt; i < (cnt+10); i++) {
 			InfoDTO dto = new InfoDTO();
-			dto.setName("홍길동 "+i);
+			dto.setName("홍길동"+i);
 			dto.setAge("2"+i);
 			list.add(dto);
+			DBMap.put("홍길동"+i, dto);
 		}
 		cnt += 10;
 		return list;
 	}
-	
+	@GetMapping(value="user/{uId}", produces = "application/json; charset=utf-8" )//value="user/{전달 받은 값}"
+	//public InfoDTO user(@RequestParam String userId) {//값 받아오기
+	public InfoDTO user(@PathVariable String uId) {//값 받아오기
+		System.out.println("userId : "+uId);
+		return DBMap.get(uId);
+	}
 }
+
+
+
+
+
+
+
+
+
