@@ -3,6 +3,7 @@ package com.care.root;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -73,6 +74,20 @@ public class HomeController {
 		dto.setAge("200");
 		
 		return dto;
+	}
+	@PostMapping(value = "ajax_result02",
+			produces = "application/json; charset=utf-8")//요청받았을 때 처리해줄 타입
+	@ResponseBody //리턴으로 돌려주는 값이 문자형태
+	public Map ajax_result02(@RequestBody Map dto) {//@RequestBody(json타입으로 받을 때 무조건 쓴다) jsp페이지 에서 넘어오는 데이터를 처리할 때
+		System.out.println(dto.get("name"));
+		System.out.println(dto.get("age"));	
+		System.out.println(dto.get("addr"));	
+		
+		return dto;
+	}
+	@GetMapping("rest01")
+	public String rest01() {
+		return "rest01";
 	}
 }
 
