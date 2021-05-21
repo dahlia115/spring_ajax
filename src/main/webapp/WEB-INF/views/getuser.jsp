@@ -45,9 +45,58 @@
 		
 		})
 	}
+	function userInfo(){
+		$.ajax({
+			url: "user/"+$("#userId").val(),//url: "user?userId="+$("#userId").val(),
+			type : "GET", dataType : "json",
+			success: function(list){
+				html = ''
+				html += "<b>아이디</b>" + list.name +"님<br>"
+				html += "<b>나이</b>" + list.age +"살<hr>"
+				$("#users").html(html)
+			}, error: function(){
+				alert('문제 발생')
+			}
+		
+		})
+	}
+	function membership(){
+		/*
+		var uId = $("#uId").val;
+		var uName = $("#uName").val;
+		var uAge = $("#uAge").val;
+		var uAddr = $("#uAddr").val;
+		var form = {uId:uId, uName:uName, uAge:uAge, uAddr:uAddr}
+		*/
+		//[{name:uId, value:값1},{name:uNmae, value:값2}...]
+		form = {}
+		arr =$("#frm").serializeArray()
+		for(i=0; i<arr.length;i++){
+			form[arr[i].name] = arr[i].value
+		}		
+		$.ajax({
+			url : "membership", type:"POST", dataType:"json",
+			data:JSON.stringify(form),
+			contentType:"application/json; charset=utf-8",
+			seccess: function(list){
+				alert('성공적으로 저장')
+			}, elert: function(){
+				alert('문제발생')
+			}
+		})
+	}
 </script>
 </head>
 <body>
+	<h3>회원가입 페이지</h3>
+	<form id="frm">
+		<input type="text" id="uId" name ="uId" placeholder="id"><br>
+		<input type="text" id="uName" name ="uName" placeholder="name"><br>
+		<input type="text" id="uAge" name ="uAge" placeholder="age"><br>
+		<input type="text" id="uAddr" name ="uAddr" placeholder="addr"><br>
+		<input type="button" onclick="membership()" value="가입">
+	</form>
+	
 	<span id="users"></span><hr>
 	<button type="button" onclick="getUsers()">사용자보기</button>
 	<hr>
