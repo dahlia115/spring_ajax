@@ -1,5 +1,7 @@
 package com.care.root;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,4 +32,18 @@ public class TestController {
 	public String delete() {
 		return "{\"execute\" : \"delete(데이터 삭제(delete))\"}";
 	}
+	static int cnt = 0;
+	@GetMapping(value = "users", produces = "application/json; charset=utf-8")
+	public ArrayList<InfoDTO> users(){
+		ArrayList<InfoDTO> list = new ArrayList<InfoDTO>();
+		for(int i=cnt; i < (cnt+10); i++) {
+			InfoDTO dto = new InfoDTO();
+			dto.setName("홍길동 "+i);
+			dto.setAge("2"+i);
+			list.add(dto);
+		}
+		cnt += 10;
+		return list;
+	}
+	
 }
